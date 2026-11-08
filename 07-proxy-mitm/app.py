@@ -21,7 +21,13 @@ def mitm_proxy(path):
         contenido_original = f"Error al conectar con la DMZ: {str(e)}"
     
     # Inyección / Alteración de la respuesta (Ataque Man-in-the-Middle)
-    contenido_alterado = contenido_original + "\n\n<!-- [ALERTA MITM] Este contenido fue alterado en tránsito por el Proxy Interceptor -->"
+    banner = (
+        "<div style='background:#c0392b;color:#fff;padding:15px;"
+        "font-size:20px;text-align:center;font-family:sans-serif;'>"
+        "&#9888; CONTENIDO INYECTADO POR PROXY MITM - JP Montoya y VM Quiceno"
+        "</div>"
+    )
+    contenido_alterado = banner + contenido_original
     
     print("[MITM ALERTA] Respuesta modificada e inyectada con éxito.")
     return Response(contenido_alterado, status=200, mimetype='text/html')
